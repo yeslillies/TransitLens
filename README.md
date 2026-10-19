@@ -102,11 +102,3 @@ Every push to `main` runs `.github/workflows/ci.yml`:
 ## Results (15 June – 12 July 2026)
 
 About 44,700 departures collected. U-Bahn punctuality (delay ≤ 1 min): 82.5%, S-Bahn: 67.4%.
-
-## Roadmap
-
-- [x] Docker setup (API + import job with docker compose)
-- [x] GitHub Actions CI pipeline (Python check, API smoke test, Docker build)
-- [ ] Automatic deployment from GitHub Actions
-- [ ] Deployment on AWS EC2 with a public demo
-- [ ] Retry logic when the BVG API fails
