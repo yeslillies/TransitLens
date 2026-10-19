@@ -1,6 +1,6 @@
 console.log("lines.js loaded");
 
-const API = "http://localhost:3000/api";
+const API = "/api";
 
 const periodSelect = document.getElementById("periodSelect");
 const typeSelect = document.getElementById("typeSelect");

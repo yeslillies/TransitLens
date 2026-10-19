@@ -11,11 +11,11 @@ async function loadAnalytics() {
   if (timeInput.value) params.set("time", timeInput.value);
   const qs = params.toString() ? `?${params}` : "";
 
-  const lines = await fetch(`http://localhost:3000/api/lines${qs}`).then(r => r.json());
-  const stations = await fetch(`http://localhost:3000/api/stations${qs}`).then(r => r.json());
-  const dashboard = await fetch(`http://localhost:3000/api/dashboard${qs}`).then(r => r.json());
-  const hours = await fetch(`http://localhost:3000/api/delay-by-hour${qs}`).then(r => r.json());
-  const distribution = await fetch(`http://localhost:3000/api/delay-distribution${qs}`).then(r => r.json());
+  const lines = await fetch(`/api/lines${qs}`).then(r => r.json());
+  const stations = await fetch(`/api/stations${qs}`).then(r => r.json());
+  const dashboard = await fetch(`/api/dashboard${qs}`).then(r => r.json());
+  const hours = await fetch(`/api/delay-by-hour${qs}`).then(r => r.json());
+  const distribution = await fetch(`/api/delay-distribution${qs}`).then(r => r.json());
 
   document.getElementById("avgDelay").textContent = dashboard.avgDelay + " min";
   document.getElementById("worstLine").textContent = lines[0]?.name || "--";

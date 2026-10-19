@@ -9,6 +9,9 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// Serve the frontend from the same server, so the app runs on one URL
+app.use(express.static(process.env.FRONTEND_DIR || path.join(__dirname, "../frontend")));
+
 // Database path
 const db = new sqlite3.Database(
     process.env.DB_PATH || path.join(__dirname, "../transport.db"),
@@ -50,6 +53,19 @@ function buildDateTimeFilter(req, column) {
 
     return { clause, params };
 }
+
+// =======================
+// Health check (used by Docker and monitoring)
+// =======================
+
+app.get("/api/health", (req, res) => {
+    db.get(`SELECT MAX(abruf_zeitpunkt) AS lastImport FROM API_Abruf WHERE status = 200`, (err, row) => {
+        if (err) {
+            return res.status(500).json({ status: "error", error: err.message });
+        }
+        res.json({ status: "ok", lastImport: row?.lastImport || null });
+    });
+});
 
 // =======================
 // Dashboard Stats

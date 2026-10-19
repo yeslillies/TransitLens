@@ -14,7 +14,7 @@ Built as a team project for the Databases course (CE29) at HTW Berlin.
 ## Architecture
 
 ```
-BVG REST API ──> main.py (cronjob) ──> SQLite (transport.db) <── server.js (Express API) <── frontend (HTML/JS)
+BVG REST API ──> importer (main.py, every 5 min) ──> SQLite volume <── api (Express, serves frontend) <── browser
 ```
 
 ## Tech stack
@@ -23,28 +23,42 @@ BVG REST API ──> main.py (cronjob) ──> SQLite (transport.db) <── ser
 - **Database:** SQLite (6 tables: Linie, Station, Linie_Station, Fahrt, Abfahrt, API_Abruf)
 - **Backend:** Node.js, Express
 - **Frontend:** HTML, CSS, JavaScript
+- **DevOps:** Docker, Docker Compose
 
-## Run it locally
+## Run with Docker (recommended)
+
+```bash
+docker compose up -d --build
+```
+
+Then open http://localhost:3000.
+
+This starts two containers that share one SQLite volume:
+
+- **importer** creates the tables and imports new departures from the BVG API every 5 minutes (`IMPORT_INTERVAL`, in seconds)
+- **api** runs the Express API and serves the frontend, with a Docker health check on `/api/health`
+
+Useful commands:
+
+```bash
+docker compose ps              # status + health
+docker compose logs -f importer
+docker compose down            # stop (data stays in the volume)
+```
+
+## Run without Docker
 
 Requirements: Python 3.10+, Node.js 20+
 
 ```bash
-# 1. Create the database
 pip install -r requirements.txt
 python3 init_db.py
+python3 main.py            # import once (or use the cronjob below)
 
-# 2. Import live departures (run it a few times, or set up the cronjob below)
-python3 main.py
-
-# 3. Start the API (http://localhost:3000)
 cd backend
 npm install
-node server.js
-
-# 4. Open frontend/index.html in the browser
+node server.js             # http://localhost:3000
 ```
-
-The Analyzer role uses a demo login (`test` / `test`). It is checked in the browser only, so it is not real security.
 
 Cronjob that imports new data every 5 minutes:
 
@@ -52,12 +66,15 @@ Cronjob that imports new data every 5 minutes:
 */5 * * * * cd /path/to/TransitLens && python3 main.py >> cron.log 2>&1
 ```
 
-Config via environment variables: `PORT` (default 3000) and `DB_PATH` (default `transport.db`).
+Config via environment variables: `PORT` (default 3000), `DB_PATH` (default `transport.db`), `FRONTEND_DIR`.
+
+The Analyzer role uses a demo login (`test` / `test`). It is checked in the browser only, so it is not real security.
 
 ## API endpoints
 
 | Endpoint | Returns |
 | --- | --- |
+| `GET /api/health` | Status + time of the last successful import |
 | `GET /api/dashboard` | Average delay, most delayed line, busiest station, peak hour |
 | `GET /api/lines` | Top 10 most delayed lines |
 | `GET /api/stations` | Top 10 most delayed stations |
@@ -78,7 +95,7 @@ About 44,700 departures collected. U-Bahn punctuality (delay ≤ 1 min): 82.5%, 
 
 ## Roadmap
 
-- [ ] Docker setup (API + import job with docker compose)
+- [x] Docker setup (API + import job with docker compose)
 - [ ] GitHub Actions CI/CD pipeline (test, build, deploy)
 - [ ] Deployment on AWS EC2 with a public demo
 - [ ] Retry logic when the BVG API fails

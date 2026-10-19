@@ -1,0 +1,21 @@
+services:
+  importer:
+    build:
+      context: .
+      dockerfile: Dockerfile.importer
+    volumes:
+      - data:/data
+    restart: unless-stopped
+
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - data:/data
+    depends_on:
+      - importer
+    restart: unless-stopped
+
+volumes:
+  data:

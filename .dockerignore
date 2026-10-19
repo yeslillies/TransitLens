@@ -1,0 +1,7 @@
+.git
+**/node_modules
+*.db
+*.log
+archive
+**/.DS_Store
+__pycache__

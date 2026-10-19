@@ -1,6 +1,6 @@
 console.log("stations.js loaded");
 const API =
-    "http://localhost:3000/api";
+    "/api";
 
 const stationSelect =
     document.getElementById("stationSelect");

@@ -1,4 +1,4 @@
-const API = "http://localhost:3000/api";
+const API = "/api";
 
 console.log("APP JS VERSION 2");
 
@@ -120,7 +120,7 @@ async function loadSearchStations(){
 
     const response =
         await fetch(
-            "http://localhost:3000/api/allstations"
+            "/api/allstations"
         );
 
     stationsCache =

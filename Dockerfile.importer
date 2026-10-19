@@ -1,0 +1,16 @@
+# Python job that imports BVG departures every few minutes
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY init_db.py main.py ./
+
+ENV DB_PATH=/data/transport.db \
+    IMPORT_INTERVAL=300 \
+    PYTHONUNBUFFERED=1
+
+# create the tables once, then import in a loop
+CMD ["sh", "-c", "python init_db.py && while true; do python main.py; sleep $IMPORT_INTERVAL; done"]
