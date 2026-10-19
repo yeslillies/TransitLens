@@ -4,7 +4,7 @@
 
 Tracks delays of Berlin U-Bahn and S-Bahn trains using live data from the BVG API, stores them in SQLite and shows them in a web dashboard.
 
-Built as a team project for the Databases course (CE29) at HTW Berlin.
+The app was built as a team project for a database class at HTW Berlin.
 
 ## What it does
 
