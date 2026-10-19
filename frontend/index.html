@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>TransitLens</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">
+            <img src="images/logo.png" alt="TransitLens Logo">
+            <span>Transit<span class="yellow">Lens</span></span>
+        </div>
+
+        <div class="menu">
+
+            <a href="index.html">Dashboard</a>
+            <a href="stations.html">Stations</a>
+            <a href="lines.html">Lines</a>
+            <a id="analyticsLink" href="analytics.html">
+                Analytics
+            </a>
+
+        </div>
+
+        <div class="role-switch">
+
+            <button id="userBtn">
+                User
+            </button>
+
+            <button id="analyzerBtn">
+                Analyzer
+            </button>
+
+        </div>
+    </nav>
+
+    <main>
+
+    <h1>Dashboard</h1>
+    <p id="lastUpdated" style="color: gray; font-size: 0.9em;"></p>
+
+    <div class="search-container">
+
+    <input
+        id="searchBox"
+        type="text"
+        placeholder="Search for stations or lines..."
+    >
+
+    <div id="searchResults"></div>
+
+</div>
+
+
+   <div class="cards">
+
+    <div class="card">
+        <h3>Average Delay</h3>
+        <p id="avgDelay">--</p>
+    </div>
+
+    <div class="card">
+        <h3>Most Delayed Line</h3>
+        <p id="mostDelayedLine">--</p>
+    </div>
+
+    <div class="card">
+        <h3>Most Active Station</h3>
+        <p id="mostActiveStation">--</p>
+    </div>
+
+    <div class="card">
+        <h3>Peak Traffic Hour</h3>
+        <p id="peakTrafficHour">--</p>
+    </div>
+
+</div>
+    <div class="panel">
+
+        <div class="analytics-grid">
+  <div class="panel">
+    <h2>Most Punctual Lines</h2>
+    <table id="mostPunctualTable">
+      <thead>
+        <tr><th>Rank</th><th>Line</th><th>Punctuality</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h2>Least Punctual Lines</h2>
+    <table id="leastPunctualTable">
+      <thead>
+        <tr><th>Rank</th><th>Line</th><th>Punctuality</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+        <h2>Most Delayed Lines</h2>
+
+        <canvas id="lineChart"></canvas>
+
+    </div>
+
+</main>
+
+    <script src="app.js"></script>
+<script src="roles.js?v=2"></script>   
+</body>
+</html>

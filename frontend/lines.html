@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TransitLens - Lines</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<nav>
+  <div class="logo">
+    <img src="images/logo.png" alt="TransitLens Logo">
+    <span>Transit<span class="yellow">Lens</span></span>
+  </div>
+
+  <div class="menu">
+    <a href="index.html">Dashboard</a>
+    <a href="stations.html">Stations</a>
+    <a id="linesLink" href="lines.html">Lines</a>
+    <a id="analyticsLink" href="analytics.html">Analytics</a>
+  </div>
+
+  <div class="role-switch">
+    <button id="userBtn">User</button>
+    <button id="analyzerBtn">Analyzer</button>
+  </div>
+</nav>
+
+<main>
+  <h1>Lines</h1>
+  <p id="lastUpdated" style="color: gray; font-size: 0.9em;"></p>
+
+  <div class="search-container">
+    <input id="lineSearchBox" type="text" placeholder="Search for lines...">
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <h3>U-Bahn Punctuality</h3>
+      <p id="ubahnPunctuality">--</p>
+    </div>
+
+    <div class="card">
+      <h3>S-Bahn Punctuality</h3>
+      <p id="sbahnPunctuality">--</p>
+    </div>
+
+    <div class="card">
+      <h3>Average Delay U-Bahn</h3>
+      <p id="ubahnAvgDelay">--</p>
+    </div>
+
+    <div class="card">
+      <h3>Average Delay S-Bahn</h3>
+      <p id="sbahnAvgDelay">--</p>
+    </div>
+  </div>
+
+  <div class="filter-row">
+    <select id="periodSelect">
+      <option value="today">Today</option>
+      <option value="week" selected>Last Week</option>
+      <option value="month">Last Month</option>
+      <option value="all">All Time</option>
+    </select>
+
+    <select id="typeSelect">
+      <option value="all" selected>All Lines</option>
+      <option value="subway">U-Bahn</option>
+      <option value="suburban">S-Bahn</option>
+    </select>
+  </div>
+
+
+
+
+
+
+
+
+<div class="panel">
+  <h2>Punctuality by Line and Time</h2>
+
+  <div class="filter-row">
+    <select id="hourLineSelect">
+      <option value="">Select line</option>
+    </select>
+
+    <select id="hourSelect">
+      <option value="">Select hour</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <h3 id="hourQuestion">Select a line and an hour</h3>
+    <p id="hourPunctuality">--</p>
+    <p id="hourDetails"></p>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="panel">
+    <h2>Line Ranking</h2>
+
+    <table id="lineRankingTable">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Line</th>
+          <th>Type</th>
+          <th>Average Delay</th>
+          <th>Punctuality</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</main>
+
+<footer>
+  Data is updated every 10 minutes. Source: v6.bvg.transport.rest
+</footer>
+
+<script src="lines.js"></script>
+<script src="roles.js?v=2"></script>
+</body>
+</html>s

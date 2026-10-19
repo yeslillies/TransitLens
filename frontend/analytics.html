@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TransitLens - Analytics</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+<script>
+  if (sessionStorage.getItem("analyzerAuthenticated") !== "true") {
+    alert("Access denied. Please log in as Analyzer first.");
+    window.location.replace("index.html");
+  }
+</script>
+
+<nav>
+  <div class="logo">
+    <img src="images/logo.png" alt="TransitLens Logo">
+    <span>Transit<span class="yellow">Lens</span></span>
+  </div>
+
+  <div class="menu">
+    <a href="index.html">Dashboard</a>
+    <a href="stations.html">Stations</a>
+    <a href="lines.html">Lines</a>
+    <a id="analyticsLink" href="analytics.html">Analytics</a>
+  </div>
+
+  <div class="role-switch">
+    <button id="userBtn">User</button>
+    <button id="analyzerBtn">Analyzer</button>
+  </div>
+</nav>
+
+<main>
+  <h1>Analytics</h1>
+
+  <div class="filter-row">
+    <input type="date">
+    <input type="time">
+  </div>
+
+  <div class="cards analytics-cards">
+    <div class="card">
+      <h3>Average Delay (All Lines)</h3>
+      <p id="avgDelay">--</p>
+      <small>Current database average</small>
+    </div>
+
+    <div class="card">
+      <h3>Most Delayed Line</h3>
+      <p id="worstLine">--</p>
+      <small id="worstLineDelay">--</small>
+    </div>
+
+    <div class="card">
+      <h3>Most Affected Station</h3>
+      <p id="worstStation">--</p>
+      <small id="worstStationDelay">--</small>
+    </div>
+  </div>
+
+  <div class="analytics-grid">
+    <div class="panel">
+      <h2>Top 10 Most Delayed Lines</h2>
+      <canvas id="topLinesChart"></canvas>
+    </div>
+
+    <div class="panel">
+      <h2>Average Delay by Hour of Day</h2>
+      <canvas id="hourChart"></canvas>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Delay Distribution</h2>
+    <canvas id="distributionChart"></canvas>
+  </div>
+</main>
+
+<footer>
+  Data is updated every 10 minutes. Source: v6.bvg.transport.rest
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="analytics.js"></script>
+<script src="roles.js?v=2"></script>
+</body>
+</html>

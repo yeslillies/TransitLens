@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TransitLens - Stations</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+<nav>
+  <div class="logo">
+    <img src="images/logo.png" alt="TransitLens Logo">
+    <span>Transit<span class="yellow">Lens</span></span>
+  </div>
+
+  <div class="menu">
+    <a href="index.html">Dashboard</a>
+    <a id="stationsLink" href="stations.html">Stations</a>
+    <a href="lines.html">Lines</a>
+    <a id="analyticsLink" href="analytics.html">Analytics</a>
+  </div>
+
+  <div class="role-switch">
+    <button id="userBtn">User</button>
+    <button id="analyzerBtn">Analyzer</button>
+  </div>
+</nav>
+
+<main>
+  <h1>Stations</h1>
+  <p id="lastUpdated" style="color: gray; font-size: 0.9em;"></p>
+
+  <select id="stationSelect"></select>
+
+  <div class="panel">
+    <h2>Recent Departures</h2>
+
+    <table id="departuresTable">
+      <thead>
+        <tr>
+          <th>Line</th>
+          <th>Direction</th>
+          <th>Delay (min)</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h2>Delay Trend (Last 7 Days)</h2>
+    <canvas id="trendChart"></canvas>
+  </div>
+</main>
+
+<footer>
+  Data is updated every 10 minutes. Source: v6.bvg.transport.rest
+</footer>
+
+<script src="stations.js"></script>
+<script src="roles.js?v=2"></script>
+</body>
+</html>

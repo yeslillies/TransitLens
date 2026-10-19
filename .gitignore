@@ -1,0 +1,17 @@
+# dependencies
+node_modules/
+
+# local data (recreate with init_db.py + main.py)
+*.db
+*.log
+
+# old experiments
+archive/
+
+# system / editor
+.DS_Store
+__pycache__/
+.venv/
+.env
+.vscode/
+.idea/
