@@ -1,5 +1,7 @@
 # TransitLens
 
+[![CI](https://github.com/yeslillies/transitlens/actions/workflows/ci.yml/badge.svg)](https://github.com/yeslillies/transitlens/actions/workflows/ci.yml)
+
 Tracks delays of Berlin U-Bahn and S-Bahn trains using live data from the BVG API, stores them in SQLite and shows them in a web dashboard.
 
 Built as a team project for the Databases course (CE29) at HTW Berlin.
@@ -23,7 +25,7 @@ BVG REST API ──> importer (main.py, every 5 min) ──> SQLite volume <─�
 - **Database:** SQLite (6 tables: Linie, Station, Linie_Station, Fahrt, Abfahrt, API_Abruf)
 - **Backend:** Node.js, Express
 - **Frontend:** HTML, CSS, JavaScript
-- **DevOps:** Docker, Docker Compose
+- **DevOps:** Docker, Docker Compose, GitHub Actions
 
 ## Run with Docker (recommended)
 
@@ -89,6 +91,14 @@ The Analyzer role uses a demo login (`test` / `test`). It is checked in the brow
 
 Most endpoints accept `?date=YYYY-MM-DD&time=HH:MM`. Without a date they show the last 24 hours.
 
+## CI pipeline
+
+Every push to `main` runs `.github/workflows/ci.yml`:
+
+1. **Python:** syntax check + creates the database and checks all 6 tables exist
+2. **API:** starts the server on an empty database and calls every main endpoint
+3. **Docker:** builds both images (only if 1 and 2 pass)
+
 ## Results (15 June – 12 July 2026)
 
 About 44,700 departures collected. U-Bahn punctuality (delay ≤ 1 min): 82.5%, S-Bahn: 67.4%.
@@ -96,6 +106,7 @@ About 44,700 departures collected. U-Bahn punctuality (delay ≤ 1 min): 82.5%, 
 ## Roadmap
 
 - [x] Docker setup (API + import job with docker compose)
-- [ ] GitHub Actions CI/CD pipeline (test, build, deploy)
+- [x] GitHub Actions CI pipeline (Python check, API smoke test, Docker build)
+- [ ] Automatic deployment from GitHub Actions
 - [ ] Deployment on AWS EC2 with a public demo
 - [ ] Retry logic when the BVG API fails
